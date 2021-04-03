@@ -32,7 +32,7 @@ env:
   UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-
+  REPOSITORY: ljtnine/docker_openwrtx86
 jobs:
   build:
     runs-on: ubuntu-18.04
@@ -173,6 +173,17 @@ jobs:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
+
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        FIRMWARE: openwrt.tar.gz
+      with:
+        name: ${{ env.REPOSITORY }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_TOKEN }}
+        buildargs: openwrt-x86-64-generic-squashfs-rootfs.tar.gz
+        tags: "latest,${{ steps.tag.outputs.release_tag }}"
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
