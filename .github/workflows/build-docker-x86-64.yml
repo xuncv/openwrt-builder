@@ -1,0 +1,37 @@
+name: Build OpenWrt Docker x86-64 image
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+
+env:
+  FIRMWARE_URL: "https://github.com/xuncv/openwrt-builder/releases/download/2021.04.03-2334/openwrt-x86-64-generic-rootfs.tar.gz"
+  REPOSITORY: ljtnine/docker_openwrtx86
+  TAG: 19.07.2
+
+jobs:
+  build:
+    name: "Build OpenWrt docker image"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Download Firmware
+        run: |
+          wget $FIRMWARE_URL -O openwrt.tar.gz
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        env:
+          FIRMWARE: openwrt.tar.gz
+        with:
+          name: ${{ env.REPOSITORY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+          buildargs: FIRMWARE
+          tags: "latest,${{ env.TAG }}"
