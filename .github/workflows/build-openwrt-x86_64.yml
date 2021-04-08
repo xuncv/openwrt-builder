@@ -175,9 +175,11 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: Publish to Registry
+      run: |
+        mv ${{ env.FIRMWARE }}/openwrt-x86-64-generic-rootfs.tar.gz openwrt.tar.gz
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
-        TARGZFIRMWARE: ${{ env.FIRMWARE }}/openwrt-x86-64-generic-rootfs.tar.gz
+        TARGZFIRMWARE: openwrt.tar.gz
       with:
         name: ${{ env.REPOSITORY }}
         username: ${{ secrets.DOCKER_USERNAME }}
