@@ -3,9 +3,9 @@ FROM scratch
 LABEL maintainer=xuncv
 LABEL homepage="https://github.com/xuncv/openwrt-builder"
 
-ARG FIRMWARE
-# FIRMWARE 使用远程的URL地址的.tar.gz包时不会自动解压，因此只能添加本地文件
-ADD ${FIRMWARE} /
+ARG TARGZFIRMWARE
+# TARGZFIRMWARE 使用远程的URL地址的.tar.gz包时不会自动解压，因此只能添加本地文件
+ADD ${TARGZFIRMWARE} /
 
 EXPOSE 80
 USER root
