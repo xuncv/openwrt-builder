@@ -1,3 +1,20 @@
+手上的openwrt设备比较多，因此结合了几个开源github actions，集成成一个项目。可以支持的设备有x86-64，N1 docker，wrt1900acs，NAS DOCKER，虚拟机等。云编译完成后，可以到`Release`页面下载固件或到dockerhub拉取。
+
+需修改的地方：
+
+`REPOSITORY`: 自己的dockerhub repository  （x86-64、n1脚本修改）
+
+github的Secrets中添加Repository secrets
+
+| KEY             | VALUE            |
+| --------------- | ---------------- |
+| DOCKER_USERNAME | dockerhub 帐号名 |
+| DOCKER_TOKEN    | dockerhub 密码   |
+
+
+
+------
+
 # Actions-OpenWrt
 
 [![LICENSE](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square&label=LICENSE)](https://github.com/P3TERX/Actions-OpenWrt/blob/master/LICENSE)
