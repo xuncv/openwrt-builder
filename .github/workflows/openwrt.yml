@@ -175,7 +175,7 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       env:
         FIRMWARE: openwrt-x86-64-generic-rootfs.tar.gz
       with:
